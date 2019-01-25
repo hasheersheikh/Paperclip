@@ -1,5 +1,4 @@
-#PAPERCLIP
-
+# PAPERCLIP
 
 # node-js-template
 
@@ -12,8 +11,8 @@ This application supports the [Getting Started with Node on Heroku](https://devc
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:jomaoppa/node-js-template.git # or clone your own fork
-$ cd node-js-template
+$ git clone https://github.com/vigilanti/Paperclip.git # or clone your own fork
+$ cd Paperclip
 $ npm install
 $ npm start
 ```
