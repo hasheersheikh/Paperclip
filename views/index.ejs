@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>Paperclip</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">PAPERCLIP</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#wan">Button1</a></li>
+          <li><a href="#too">Button2</a></li>
+          <li><a href="#search"><i class="fas fa-search"></i></i></a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+    <div id="playercontrols">
+      <div class="btn-group" style="float:left;">
+        <button id="playVedio" type="button" class="btn btn-default">
+          <i class="fas fa-play"></i>
+        </button>
+        <button type="button" class="btn btn-default" >
+          <i class="fas fa-pause"></i>
+        </button>
+      </div>
+      <div id="progressbar" style="width: 600px;height: 35px;margin-left: 10px;float: left;  ">
+        <div id="line" style="border-style: solid;top: 50%;position: relative;border-width: 1px;"></div>
+        <div id="square" style="height: 15px;width: 15px;position:
+            relative;border-width: 2px;border-style: solid;top: 8.5px;left: 0%;"></div>
+      </div>
+    </div>
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '420',
+          videoId: '5wMJok9gXZc',
+          width: '720',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          },
+          playerVars: {
+            'controls': 0,
+            'disablekb': 1,
+            'showinfo': 0,
+            'modestbranding': 1,
+            'rel': 0,
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        progressBarLoop();
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+
+  </div><!-- /.container -->
+  <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="#">copyright @vigilante</a>
+    </div>
+  </nav>
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+  </script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    function progressBarLoop(){
+      var progressBar = $('.progressbar');
+
+      setInterval(function(){
+          if(player==null || progressBar ==null){
+            return;
+          }
+          console.log(player.getCurrentTime());},200);
+    }
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
+  </body>
+
+</html>
