@@ -12,13 +12,13 @@ app.get('/', (req, res) => res.render('index'))
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
-// app.get('/', function(req, res){
-//   res.sendFile(__dirname + '/index.html');
-// });
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
 
-// io.on('connection', function(socket){
-//   console.log('a user connected');
-// });
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
 // http.listen(PORT, function(){
 //   console.log('listening on ${PORT}');
